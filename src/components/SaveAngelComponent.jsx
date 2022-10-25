@@ -25,7 +25,7 @@ class SaveAngelComponent extends React.Component {
      
    }
 
-  changeContactHandler=(event)=>{
+   changePasswordHandler=(event)=>{
     this.setState({password:event.target.value});
 
   }
@@ -52,7 +52,7 @@ render() {
             <tr><td>Password :</td> 
                 <td><input type ="password" name="password" width={10}
                            value= {this.state.password} 
-                           onChange={this.changeContactHandler}/> </td></tr>
+                           onChange={this.changePasswordHandler}/> </td></tr>
             <tr>
                 <td><button onClick={window.back} >Cancel</button></td>
                 <td><input type="button" value ="Save"  onClick={this.saveAngelUser}/></td>
