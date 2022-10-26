@@ -21,6 +21,7 @@ class LoginComponent extends React.Component {
     e.preventDefault();
     let angel ={password:this.state.password,email:this.state.email};
     console.log("angel" +JSON.stringify(angel));
+   
     AngleService.saveAngelInfo(angel);
      
    }
@@ -34,7 +35,7 @@ class LoginComponent extends React.Component {
 }
 
 render() {
-        return (
+        return (//part of DOM objct model or it is updating the dom  
             <div> 
             <table className='table table-sptriped'>
             <caption>Angel Component Entry </caption>

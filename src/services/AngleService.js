@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 
-const ANGEL_GET_REST_URL ='http://localhost:8181/allAngleRecord'
-const ANGEL_POST_REST_URL ='http://localhost:8181/addAngle'
+const ANGEL_GET_REST_URL ='http://localhost:8181/api/allAngleRecord'
+const ANGEL_POST_REST_URL ='http://localhost:8181/api/addAngle'
 
 class AngleService {
     getAngleInfo() {
@@ -11,9 +11,11 @@ class AngleService {
 
 
     saveAngelInfo(angel){
+      
       return axios({method:'post',
                     url:ANGEL_POST_REST_URL,
-                    data:{email:angel.email,
+                    data:{
+                          email:angel.email,
                           contact:angel.password
                          }
                   });
