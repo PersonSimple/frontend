@@ -12,8 +12,8 @@ class FooterComponent extends Component {
     render() {
         return(
          <div>
-            <footer className='footer'>
-                <span className='text-muted'>
+            <footer className='navbar bg-dark nav-bark-dark navbar-exand-md'>
+                <span className='text-muted' align ='center'>
                     All right reserverd ESD program Application 
                 </span>
             </footer>

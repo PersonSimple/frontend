@@ -4,7 +4,7 @@ import './App.css';
 import HeaderComponent from './components/HeaderComponent';
 import FooterComponent from './components/FooterComponent';
 import CreateAngelComponent from './components/CreateAngelComponent';
-import SaveAngelComponent from './components/SaveAngelComponent';
+import LoginComponent from './components/LoginComponent';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
        <div><HeaderComponent /></div>
        <div><BrowserRouter>
           <Routes>
-            <Route exact path = '/' element={<SaveAngelComponent/>} /> 
+            <Route exact path = '/' element={<LoginComponent/>} /> 
             <Route exact path = '/angel' element={<AngleComponent/>}/> 
             <Route path = "/add-angel" element={<CreateAngelComponent />} />
           </Routes>

@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import AngleService from '../services/AngleService';
 
-class SaveAngelComponent extends React.Component {
+class LoginComponent extends React.Component {
   constructor(props) {
     super(props)
 
@@ -36,8 +36,8 @@ class SaveAngelComponent extends React.Component {
 render() {
         return (
             <div> 
-            <table>
-            <caption>ANgel Component Entry </caption>
+            <table className='table table-sptriped'>
+            <caption>Angel Component Entry </caption>
             <thead align="center">
             <tr><th>Login Page</th></tr>
             </thead>
@@ -63,4 +63,4 @@ render() {
         );
     }
 }
-export default SaveAngelComponent;
+export default LoginComponent;
