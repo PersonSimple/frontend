@@ -1,44 +1,19 @@
 import React, { Component } from 'react'
 
-
-class FooterComponent extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-
-        }
-
-    }
-    render() {
-        return(
-         <div>
-            <footer className='navbar bg-dark nav-bark-dark navbar-exand-md'>
-                <span className='text-muted' align ='center'>
-                    All right reserverd ESD program Application 
-                </span>
-            </footer>
-         </div>
-         );
-    }
-}
-
-export default FooterComponent;
-
-
-
-/*
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-
-export class FooterComponent extends Component {
-  static propTypes = {}
-
+export default class FooterComponent extends Component {
   render() {
     return (
-      <div>FooterComponent</div>
+      <div><div className="card">
+      <div className="card-header">
+        Quote
+      </div>
+      <div className="card-body">
+        <blockquote className="blockquote mb-0">
+          <p>A well-known quote, contained in a blockquote element.</p>
+          <footer className="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+        </blockquote>
+      </div>
+    </div></div>
     )
   }
 }
-
-export default FooterComponent
-*/

@@ -1,67 +1,70 @@
+import React, { useState,Component } from 'react';
+import axios from "axios";
+import {useNavigate} from 'react-router-dom'
+import PropTypes from 'prop-types';
 
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import AngleService from '../services/AngleService';
+const LOGIN_POST_URL ='http://localhost:8080/api/loginhelper/login' 
 
-class LoginComponent extends React.Component {
-  constructor(props) {
-    super(props)
+function LoginComponent ()  {
 
-    this.state = {
-        email :'',
-        password:''
-  }
+    const navigate = useNavigate();
 
-  this.changeEmailHandler=this.changeEmailHandler.bind(this);
-  this.changePasswordHandler=this.changePasswordHandler.bind(this);
-  this.saveAngelUser =this.saveAngelUser.bind(this);
-  }
-
-  saveAngelUser=(e)=>{
-    e.preventDefault();
-    let angel ={password:this.state.password,email:this.state.email};
-    console.log("angel" +JSON.stringify(angel));
+    const [email,setEmail] = useState('');  
+    const [password,setPassword] =useState('');
+    const [respX,setRespX] =useState('');
    
-    AngleService.saveAngelInfo(angel);
-     
-   }
+   const   changeEmail=(event)=> {
+    setEmail( event.target.value);
+      }
 
-   changePasswordHandler=(event)=>{
-    this.setState({password:event.target.value});
-
-  }
-  changeEmailHandler=(event)=>{
-    this.setState({email:event.target.value});
-}
-
-render() {
-        return (//part of DOM objct model or it is updating the dom  
-            <div> 
-            <table className='table table-sptriped'>
-            <caption>Angel Component Entry </caption>
-            <thead align="center">
-            <tr><th>Login Page</th></tr>
-            </thead>
-            <tbody>
-            <tr><td>Login/Email :</td>
-                <td>
-                    <input type ="text" name="email" width={10} 
-                     value= {this.state.email}
-                     onChange={this.changeEmailHandler} />
-                </td>
-            </tr>
-            <tr><td>Password :</td> 
-                <td><input type ="password" name="password" width={10}
-                           value= {this.state.password} 
-                           onChange={this.changePasswordHandler}/> </td></tr>
-            <tr>
-                <td><button onClick={window.back} >Cancel</button></td>
-                <td><input type="button" value ="Save"  onClick={this.saveAngelUser}/></td>
-            </tr>
-            </tbody>
-            </table>
-        </div>
-        );
+  const  changePassword=(event)=> {
+    setPassword(event.target.value);
     }
-}
+  
+  const submitForm= ()=> {
+        let angel = {
+            email:email,
+            password:password
+        }
+        console.log(angel);
+       
+     axios({
+            method: 'post',
+            url: LOGIN_POST_URL,
+            data: {
+                    email: angel.email,
+                    password: angel.password
+                    }
+        }).then(res =>{
+            console.log(" in "+res.data);
+            setRespX(res.data);
+          })
+          console.log( " out result "+respX);
+      }
+       
+        return (
+            <div className='container'>
+                <label htmlFor="staticEmail" id="idx" name="idx" className="col-sm-2 col-form-label"> {respX} </label>
+                <div className="mb-3 row">
+                    <label htmlFor="staticEmail" className="col-sm-2 col-form-label">Email</label>
+                    <div className="col-sm-3">
+                    <input type="text"  className="form-control" name="email" value={email} onChange={changeEmail}/>
+                    </div>
+                </div>
+                <div className="mb-3 row">
+                    <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
+                    <div className="col-sm-3">
+                    <input type="password" className="form-control" name="password" value={password} onChange={changePassword}/>
+                    </div>
+                   
+                </div>
+                <div className="col-sm-7">
+                <button type="button" className ="btn btn-primary  mr-1 mx-2" onClick={()=>navigate(-1)}>Cancel </button>
+                
+                <button type="button" className ="btn btn-primary  mr-1" name="submit" 
+                            onClick={submitForm}>Submit</button>
+                </div>
+            </div>
+        );
+  }
 export default LoginComponent;
