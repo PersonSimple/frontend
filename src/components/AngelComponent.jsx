@@ -31,7 +31,8 @@ class AngelComponent extends Component {
           }
      
     submitForm= ()=> {
-  
+      //  const isValid = this.formValidation(); 
+        
         let angel = {
             ahEmail:this.state.email,
             ahAddress:this.state.address,
@@ -56,26 +57,35 @@ class AngelComponent extends Component {
             console.log('before retValue '+ res.data.ahName);
             this.setState({message: res.data.ahName})
           })
-  
+        
     }
+
+
+    
       formValidation=()=>{
-        const {name, email} = this.state;
+        const {name, email,address} = this.state;
         let isValid = true;
         const errors ={}
         if(name.trim().length < 6) {
-            errors.nameLength =" minimum length should be 6"
+            errors.nameLength =" name minimum length should be 6"
             isValid =false;
         }
+        if(name.includes("1"))
+         {
+            errors.nameDigit =" dont use digit in name "
+            isValid =false;
+         }
         if(email.includes("$")) {
-            errors.name =" must not include $ special char"
+            errors.name$ =" email must not include $ special char"
             isValid =false;
         }
+
         this.setState({errors})
         return isValid;
       }
 
   validateForm() {
-    this.setState({formValid: this.state.emailValid && this.state.passwordValid});
+   // this.setState({formValid: this.state.emailValid && this.state.passwordValid});
   }
 
     render () {

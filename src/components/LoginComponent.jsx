@@ -20,6 +20,10 @@ function LoginComponent ()  {
   const  changePassword=(event)=> {
     setPassword(event.target.value);
     }
+
+    const  navigateMethod=(event)=> {
+        navigate("/add-angel");
+        }
   
   const submitForm= ()=> {
         let angel = {
@@ -38,6 +42,7 @@ function LoginComponent ()  {
         }).then(res =>{
             console.log(" in "+res.data);
             setRespX(res.data);
+            //navigate("/add-angel");
           })
           console.log( " out result "+respX);
       }
@@ -63,6 +68,10 @@ function LoginComponent ()  {
                 
                 <button type="button" className ="btn btn-primary  mr-1" name="submit" 
                             onClick={submitForm}>Submit</button>
+                </div>
+                <div>
+                <button type="button" className ="btn btn-primary  mr-1" name="add-angel" 
+                            onClick={navigateMethod}>add-angel</button>
                 </div>
             </div>
         );
