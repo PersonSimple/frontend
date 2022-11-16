@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import axios, { post } from 'axios';
-
+import Loginservice from '../Services/Loginservice';
 
 const ANGEL_POST_URL ='http://localhost:8080/api/angelUser/saveAngelUser';
 class AngelComponent extends Component {
 
     constructor(props) {
+        console.log("constructor");
         super(props)
         this.state = {
             name:'',
@@ -14,7 +15,7 @@ class AngelComponent extends Component {
             email:'',
             message:'',
             file: null,
-            errors : {}
+            angel : []
         }
         this.submitForm =this.submitForm.bind(this);
         this.handleChange =this.handleChange.bind(this);
@@ -25,13 +26,21 @@ class AngelComponent extends Component {
         this.setState({ file });
       }
 
-    handleChange=(e)=>{
-        const isValid = this.formValidation();
-        this.setState({[e.target.name]: e.target.value})
-          }
-     
+    handleChange=(event)=>{
+        this.setState({[event.target.name]: event.target.value})
+        }
+
+
+  componentDidMount () {
+    console.log("did Mount Method");
+    Loginservice.getAngleProfileById().then(  (response) => {
+        this.setState ({angel:response.data});
+    });
+}
+
+
+
     submitForm= ()=> {
-  
         let angel = {
             ahEmail:this.state.email,
             ahAddress:this.state.address,
@@ -55,40 +64,15 @@ class AngelComponent extends Component {
         }).then(res => {
             console.log('before retValue '+ res.data.ahName);
             this.setState({message: res.data.ahName})
+            
           })
-  
-    }
-      formValidation=()=>{
-        const {name, email} = this.state;
-        let isValid = true;
-        const errors ={}
-        if(name.trim().length < 6) {
-            errors.nameLength =" minimum length should be 6"
-            isValid =false;
-        }
-        if(email.includes("$")) {
-            errors.name =" must not include $ special char"
-            isValid =false;
-        }
-        this.setState({errors})
-        return isValid;
       }
-
-  validateForm() {
-    this.setState({formValid: this.state.emailValid && this.state.passwordValid});
-  }
+ 
 
     render () {
-        const {errors} =this.state;
         return (
             <form >
-                {Object.keys(errors).map((key)=>{
-                    return (
-                        <div key ={key}>{errors[key]}</div>
-                        )
-                })}
- 
-                 <table className="table">
+                <table className="table">
                  <thead>
                         <tr>
                         <th scope="col">#</th>
@@ -101,23 +85,23 @@ class AngelComponent extends Component {
                         <tr>
                         <th scope="row">1</th>
                         <td>Name :</td>
-                        <td><input type ="text"  name="name" value={this.state.name}  onChange={this.handleChange} width={10}/></td>
+                        <td><input type ="text"  name="name" value ={this.state.angel.ahName} onChange={this.handleChange} width={10}/></td>
                         </tr>
                         <tr>
                         <th scope="row">2</th>
                         <td>Email :</td>
-                        <td><input type ="text" name ="email" value={this.state.email} onChange={this.handleChange}  width={10}/></td>
+                        <td><input type ="text" name ="email" value ={this.state.angel.ahEmail} onChange={this.handleChange}  width={10}/></td>
                         </tr>
                         <tr>
                         <th scope="row">2</th>
                         <td>Address :</td>
-                        <td><input type ="text" name ="address" value={this.state.address} onChange={this.handleChange}  width={10}/></td>
+                        <td><input type ="text" name ="address" value ={this.state.angel.ahAddress} onChange={this.handleChange}  width={10}/></td>
                         </tr>
 
                         <tr>
                         <th scope="row">2</th>
                         <td>Contact Person :</td>
-                        <td><input type ="text" name ="contactNumber" value={this.state.contactNumber} onChange={this.handleChange}  width={10}/></td>
+                        <td><input type ="text" name ="contactNumber"  value ={this.state.angel.ahContactNumber} onChange={this.handleChange}  width={10}/></td>
                         </tr>
                         <tr>
                         <th scope="row">2</th>
@@ -170,8 +154,6 @@ class AngelComponent extends Component {
                         </tr>
                     </tbody>
                 </table>
-
-
                 </form>
         );
     } 
